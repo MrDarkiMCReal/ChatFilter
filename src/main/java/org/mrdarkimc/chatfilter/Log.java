@@ -15,28 +15,25 @@ public class Log {
         COMMAND("[КОМАНДА]"),
         CHAT("[ЧАТ]"),
         BOOK("[КНИГА]");
-
-        // Поле для хранения строки
         private final String nameForLog;
 
-        // Конструктор для инициализации значения
         Logtype(String nameForLog) {
             this.nameForLog = nameForLog;
         }
 
-        // Метод для получения значения строки
         public String getNameForLog() {
             return nameForLog;
         }
     }
-    public static void send(Player player, Location location, String textToAdd, Logtype type){
+
+    public static void send(Player player, Location location, String textToAdd, Logtype type) {
         String playername = player.getName();
         String world = location.getWorld().getName();
         String x = String.valueOf(location.getX());
         String y = String.valueOf(location.getY());
         String z = String.valueOf(location.getZ());
 
-        new BukkitRunnable(){
+        new BukkitRunnable() {
 
             @Override
             public void run() {
@@ -50,7 +47,7 @@ public class Log {
                 builder.append(type.getNameForLog());
                 builder.append(" ");
                 builder.append(playername);
-                if (type.equals(Logtype.SIGN)){
+                if (type.equals(Logtype.SIGN)) {
                     builder.append(" ");
                     builder.append("world:");
                     builder.append(world);
@@ -69,7 +66,7 @@ public class Log {
                 FileConfiguration log = ChatFilter.log.get();
                 List<String> stringlist = log.getStringList("trace");
                 stringlist.add(builder.toString());
-                log.set("trace",stringlist);
+                log.set("trace", stringlist);
                 ChatFilter.log.saveConfig();
             }
         }.runTaskAsynchronously(ChatFilter.instance);
