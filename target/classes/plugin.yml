@@ -1,0 +1,14 @@
+name: ChatFilter
+version: '1.0'
+main: org.mrdarkimc.chatfilter.ChatFilter
+description: Плагин на заказ на фильтрование команд и табличек.
+api-version: '1.19'
+author: MrDarkiMC
+website: https://kwork.ru/user/mrdarkimc
+permissions:
+  satanicfilter.ignore:
+    description: Игнорирует проверки.
+    default: false
+commands:
+  sfilter:
+    usage: /sFilter reload
