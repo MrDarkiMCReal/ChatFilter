@@ -1,6 +1,12 @@
 org\mrdarkimc\chatfilter\Log$1.class
 org\mrdarkimc\chatfilter\eventhandlers\Handler.class
 org\mrdarkimc\chatfilter\ChatFilter.class
+org\mrdarkimc\chatfilter\MessageChecker.class
+org\mrdarkimc\chatfilter\eventhandlers\Handler$1.class
+org\mrdarkimc\chatfilter\web\DataSender.class
+org\mrdarkimc\chatfilter\web\DataSender$1.class
 org\mrdarkimc\chatfilter\Log$Logtype.class
+org\mrdarkimc\chatfilter\MessageChecker$MessageStatus.class
+org\mrdarkimc\chatfilter\web\DataPacket.class
 org\mrdarkimc\chatfilter\Command.class
 org\mrdarkimc\chatfilter\Log.class

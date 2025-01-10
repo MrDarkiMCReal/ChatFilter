@@ -1,0 +1,50 @@
+builders:
+  messageToModerators:
+    - 'empty'
+    - 'playerSays'
+    - 'susMessage'
+    - 'pass,middle,ban,middle,mute'
+    - 'empty'
+  playtimeToAdmins:
+    - 'empty'
+    - 'playerCantSayPlaytime'
+    - 'susMessage'
+    - 'ban,middle,mute'
+    - 'empty'
+tags:
+  empty:
+    text: " "
+  playerSays:
+    text: "&#FB0808Игрок {player} пишет подозрительное сообщение:"
+  playerCantSayPlaytime:
+    text: "&#FB0808Игрок {player} попытался сказать, но не наиграл 10 мин:"
+  pass:
+    text: "&#71bc78[Одобрить] "
+    hover-event:
+      text:
+        - "&#88CDAEНажмите, что бы одобрить сообщение"
+    click-event:
+      type: "RUN_COMMAND"
+      output: "/sfilter pass {player}"
+  susMessage:
+    text: "&#A78383{message}"
+  ban:
+    text: " &#FB0808[Забанить] "
+    hover-event:
+      text:
+        - "&#88CDAEНажмите, что бы забанить игрока"
+        - "&#88CDAEпо IP на 40 дней"
+    click-event:
+      type: "RUN_COMMAND"
+      output: "/tempipban {player} 40d PCC"
+  mute:
+    text: " &#DDA427[МУТ] "
+    hover-event:
+      text:
+        - "&#88CDAEНажмите, что бы выдать мут"
+        - "&#88CDAEВ строке для команды будет подставлена команда для мута"
+    click-event:
+      type: "SUGGEST_COMMAND"
+      output: "/tempipmute {player} "
+  middle:
+    text: " | "

@@ -9,6 +9,9 @@ permissions:
   satanicfilter.ignore:
     description: Игнорирует проверки.
     default: false
+  satanicfilter.chatmoderator:
+    description: Позволяет игроку получать сообщения для модерации
+    default: false
 commands:
   sfilter:
     usage: /sFilter reload
