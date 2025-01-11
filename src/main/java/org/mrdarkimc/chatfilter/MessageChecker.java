@@ -5,14 +5,18 @@ import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.Statistic;
 import org.bukkit.entity.Player;
+import org.bukkit.event.player.AsyncPlayerChatEvent;
+import org.bukkit.scheduler.BukkitRunnable;
 import org.mrdarkimc.SatanicLib.TagBuilderGetter;
 import org.mrdarkimc.SatanicLib.messages.KeyedMessage;
 import org.mrdarkimc.chatfilter.eventhandlers.Handler;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 public class MessageChecker {
     private static final Map<Player, String> cachedMessage = new HashMap<>();
@@ -38,11 +42,13 @@ public class MessageChecker {
         String message = new String(cachedMessage.get(player));
         cachedMessage.remove(player);
         Handler.passedPlayers.add(player);
+        new KeyedMessage(player,"messages.playerPassed",null).send();
         player.chat(message);
+
     }
 
     public static MessageStatus checkUnicode(Player sender, String message) {
-        String regex = "[^a-zA-Zа-яёА-ЯЁ0-9\\s!@#$`~%^&*()_\\-+=\\[\\]{}|;:'\",.<>?/]"; //todo добавил ~ `
+        String regex = "[^a-zA-Zа-яёА-ЯЁїєіґ0-9\\s!@#$`~%^&*()_\\-+=\\[\\]{}|;:'\",.<>?\\\\/]";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(message);
         if (matcher.find()) {

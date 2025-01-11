@@ -45,6 +45,6 @@ tags:
         - "&#88CDAEВ строке для команды будет подставлена команда для мута"
     click-event:
       type: "SUGGEST_COMMAND"
-      output: "/tempipmute {player} "
+      output: "/sfilter mute {player} "
   middle:
     text: " | "

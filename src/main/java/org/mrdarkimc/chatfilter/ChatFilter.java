@@ -19,6 +19,7 @@ public final class ChatFilter extends JavaPlugin implements Listener {
     public static Configs log;
     public static String ignorePermission = "satanicfilter.ignore";
     public static String skipPlayTimePermission = "satanicfilter.playtimebypass";
+    public static String muteCommand;
     public static ChatFilter instance;
     public static List<String> banlist = new ArrayList<>();
     public static char[] ignoreChars;
@@ -40,6 +41,7 @@ public final class ChatFilter extends JavaPlugin implements Listener {
     }
     public static void deserealize(){
         commandlist = config.get().getStringList("triggercommands");
+        replaceableMap.clear();
         for (String blacklist : config.get().getStringList("blacklist")) {
             String[] strs = blacklist.split("\\|");
             replaceableMap.put(strs[0],strs[1]);
@@ -48,6 +50,7 @@ public final class ChatFilter extends JavaPlugin implements Listener {
         ignoreChars = config.get().getString("ignoreChar").toCharArray();
         Bukkit.getLogger().info(ChatColor.YELLOW + "[SatanicFilter] Успешно зарегистрировано: " + commandlist.size() + " команд.");
         Bukkit.getLogger().info(ChatColor.YELLOW + "[SatanicFilter] Успешно зарегистрировано: " + replaceableMap.size() + " ругательств.");
+        muteCommand = config.get().getString("mutecommand");
     }
 
     @Override

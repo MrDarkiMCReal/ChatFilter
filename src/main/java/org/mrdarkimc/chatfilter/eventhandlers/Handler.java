@@ -17,7 +17,6 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.meta.BookMeta;
 import org.mrdarkimc.SatanicLib.TagBuilderGetter;
 import org.mrdarkimc.SatanicLib.messages.KeyedMessage;
-import org.mrdarkimc.SatanicLib.messages.Message;
 import org.mrdarkimc.chatfilter.ChatFilter;
 import org.mrdarkimc.chatfilter.Log;
 import org.mrdarkimc.chatfilter.MessageChecker;
@@ -30,7 +29,8 @@ import java.util.regex.Pattern;
 public class Handler implements Listener {
     @EventHandler(priority = EventPriority.LOWEST)
     void onchat(PlayerCommandPreprocessEvent e) {
-        if (e.getPlayer().hasPermission(ChatFilter.ignorePermission))
+        Player player = e.getPlayer();
+        if (player.hasPermission(ChatFilter.ignorePermission))
             return;
         String original = e.getMessage();
         String saveOriginal = e.getMessage();
@@ -43,7 +43,52 @@ public class Handler implements Listener {
         }
         if (doreturn)
             return;
+        if (player.hasPermission(ChatFilter.skipPlayTimePermission) || MessageChecker.havePlayedEnough(player)){
 
+        }else {
+            e.setCancelled(true);
+            TextComponent comp = TagBuilderGetter.get(null,"playtimeToAdmins",Map.of("{player}", player.getName(), "{message}", original));
+            Bukkit.getOnlinePlayers().stream()
+                    .filter(player1 -> player1.hasPermission("satanicfilter.chatmoderator"))
+                    .forEach((p) -> {
+                        p.spigot().sendMessage(comp);
+                        p.playSound(p.getLocation(), Sound.UI_TOAST_CHALLENGE_COMPLETE,1,2);
+                    });
+            new KeyedMessage(player,"messages.playtime",Map.of("{player}", player.getName())).send();
+            return;
+        }
+        if (passedPlayers.contains(player)){
+            passedPlayers.remove(player);
+        }else {
+            switch (MessageChecker.checkUnicode(player, original)) { //проверка на юникод
+                case BAD:
+                    new KeyedMessage(player,"messages.banmessage",null).send();
+                    e.setCancelled(true);
+                    MessageChecker.alertMods(player, original);
+                    DataSender.sendData(new DataPacket(player.getName(),original));
+                    return;
+                case ALREADY_BLOCKED:
+                    e.setCancelled(true);
+                    new KeyedMessage(player,"messages.already_banmessage",null).send();
+                    return;
+                case GOOD:
+                    break;
+            }
+            switch (MessageChecker.checkBanWords(player, original)) {
+                case BAD:
+                    new KeyedMessage(player,"messages.banmessage",null).send();
+                    e.setCancelled(true);
+                    MessageChecker.alertMods(player, original);
+                    DataSender.sendData(new DataPacket(player.getName(),original));
+                    return;
+                case ALREADY_BLOCKED:
+                    e.setCancelled(true);
+                    new KeyedMessage(player,"messages.already_banmessage",null).send();
+                    return;
+                case GOOD:
+                    break;
+            }
+        }
         for (Map.Entry<String, String> stringStringEntry : ChatFilter.replaceableMap.entrySet()) {
             String regex = stringStringEntry.getKey();
             String replacement = stringStringEntry.getValue();

@@ -18,6 +18,7 @@ URL: "https://funmine.su/admin/chat_bot.php"
 servername: "Анархия-1"
 ignoreChar: ' &?<>,.1234567890!~[]`-\|/~()+='
 newbiePlayTimeInTicks: 12000 #10 минут в тиках. (10 * 20 * 60 = 12000)
+mutecommand: 'tempipmute {player}' #после этого будет добавлены аргументы
 messages:
   banmessage:
     enable: true
@@ -49,6 +50,19 @@ messages:
     text:
       - ' '
       - '  &c&l| &#D27E7EВы не достаточно наиграли, что бы писать в чат.'
+      - ' '
+  playerPassed:
+    enable: true
+    text:
+      - ' '
+      - '  &a&l| &#7EBC82Ваше сообщение одобрено'
+      - '  &a&l| &#7EBC82Приносим извинения'
+      - ' '
+  player_muted: #Всем у кого есть право satanicfilter.chatmoderator
+    enable: true
+    text:
+      - ' '
+      - '  &a&l| &#7EBC82Сообщение игрока {player} привело к муту'
       - ' '
 banlist:
   - "rushtime"
@@ -226,8 +240,8 @@ blacklist:
   - 'ебли|еб*и'
   - 'уеба|у*ба'
   - 'уебищ|у*бищ'
-  - '.mc|*'
-  - 'mc.|*'
+  - '\\.mc|*'
+  - 'mc\\.|*'
   - 'серв хуйни|лучший сервер'
   - 'маму|м**у'
   - 'мамаш|****'
