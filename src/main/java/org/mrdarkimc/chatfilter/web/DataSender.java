@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import org.bukkit.Bukkit;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.mrdarkimc.chatfilter.ChatFilter;
+import org.mrdarkimc.chatfilter.web.interfaces.BasePacket;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -13,7 +14,7 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
 public class DataSender {
-    public static void sendData(DataPacket data){
+    public static <T extends BasePacket> void sendData(T data){
         new BukkitRunnable(){
 
             @Override
@@ -39,13 +40,7 @@ public class DataSender {
                     }
 
                     int responseCode = connection.getResponseCode();
-                    Bukkit.getLogger().info(" ");
-                    Bukkit.getLogger().info("Статус код: " + responseCode);
-                    Bukkit.getLogger().info("Пакет: ");
-                    Bukkit.getLogger().info("nickname: " + data.nickname);
-                    Bukkit.getLogger().info("message: " + data.message);
-                    Bukkit.getLogger().info("server_name: " + data.server_name);
-                    Bukkit.getLogger().info(" ");
+                    data.log(responseCode);
 
                 } catch (IOException e) {
                     e.printStackTrace();

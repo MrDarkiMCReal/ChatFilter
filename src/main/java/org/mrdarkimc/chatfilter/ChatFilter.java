@@ -20,6 +20,7 @@ public final class ChatFilter extends JavaPlugin implements Listener {
     public static String ignorePermission = "satanicfilter.ignore";
     public static String skipPlayTimePermission = "satanicfilter.playtimebypass";
     public static String muteCommand;
+    public static String banCommand;
     public static ChatFilter instance;
     public static List<String> banlist = new ArrayList<>();
     public static char[] ignoreChars;
@@ -51,6 +52,7 @@ public final class ChatFilter extends JavaPlugin implements Listener {
         Bukkit.getLogger().info(ChatColor.YELLOW + "[SatanicFilter] Успешно зарегистрировано: " + commandlist.size() + " команд.");
         Bukkit.getLogger().info(ChatColor.YELLOW + "[SatanicFilter] Успешно зарегистрировано: " + replaceableMap.size() + " ругательств.");
         muteCommand = config.get().getString("mutecommand");
+        banCommand = config.get().getString("bancommand");
     }
 
     @Override

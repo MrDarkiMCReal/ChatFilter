@@ -18,7 +18,7 @@ URL: "https://funmine.su/admin/chat_bot.php"
 servername: "Анархия-1"
 ignoreChar: ' &?<>,.1234567890!~[]`-\|/~()+='
 newbiePlayTimeInTicks: 12000 #10 минут в тиках. (10 * 20 * 60 = 12000)
-mutecommand: 'tempipmute {player}' #после этого будет добавлены аргументы
+mutecommand: 'tempipmute {player} {args}' #после этого будет добавлены аргументы
 messages:
   banmessage:
     enable: true

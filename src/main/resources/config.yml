@@ -19,6 +19,7 @@ servername: "Анархия-1"
 ignoreChar: ' &?<>,.1234567890!~[]`-\|/~()+='
 newbiePlayTimeInTicks: 12000 #10 минут в тиках. (10 * 20 * 60 = 12000)
 mutecommand: 'tempipmute {player} {args}' #после этого будет добавлены аргументы
+bancommand: 'tempipban {player} {args}' #после этого будет добавлены аргументы
 messages:
   banmessage:
     enable: true
@@ -63,6 +64,12 @@ messages:
     text:
       - ' '
       - '  &a&l| &#7EBC82Сообщение игрока {player} привело к муту'
+      - ' '
+  player_banned: #Всем у кого есть право satanicfilter.chatmoderator
+    enable: true
+    text:
+      - ' '
+      - '  &a&l| &#7EBC82Сообщение игрока {player} привело к бану'
       - ' '
 banlist:
   - "rushtime"

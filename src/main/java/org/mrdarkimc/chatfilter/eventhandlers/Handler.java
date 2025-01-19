@@ -20,7 +20,7 @@ import org.mrdarkimc.SatanicLib.messages.KeyedMessage;
 import org.mrdarkimc.chatfilter.ChatFilter;
 import org.mrdarkimc.chatfilter.Log;
 import org.mrdarkimc.chatfilter.MessageChecker;
-import org.mrdarkimc.chatfilter.web.DataPacket;
+import org.mrdarkimc.chatfilter.web.BadMessagePacket;
 import org.mrdarkimc.chatfilter.web.DataSender;
 
 import java.util.*;
@@ -36,7 +36,7 @@ public class Handler implements Listener {
         String saveOriginal = e.getMessage();
         boolean doreturn = true;
         for (String allowedCmmand : ChatFilter.commandlist) {
-            if (original.startsWith(allowedCmmand)) {
+            if (original.split(" ")[0].equals(allowedCmmand)) {
                 doreturn = false;
                 break;
             }
@@ -65,7 +65,7 @@ public class Handler implements Listener {
                     new KeyedMessage(player,"messages.banmessage",null).send();
                     e.setCancelled(true);
                     MessageChecker.alertMods(player, original);
-                    DataSender.sendData(new DataPacket(player.getName(),original));
+                    DataSender.sendData(new BadMessagePacket("0",player.getName(),original));
                     return;
                 case ALREADY_BLOCKED:
                     e.setCancelled(true);
@@ -79,7 +79,7 @@ public class Handler implements Listener {
                     new KeyedMessage(player,"messages.banmessage",null).send();
                     e.setCancelled(true);
                     MessageChecker.alertMods(player, original);
-                    DataSender.sendData(new DataPacket(player.getName(),original));
+                    DataSender.sendData(new BadMessagePacket("0",player.getName(),original));
                     return;
                 case ALREADY_BLOCKED:
                     e.setCancelled(true);
@@ -162,7 +162,7 @@ public class Handler implements Listener {
                     new KeyedMessage(player,"messages.banmessage",null).send();
                     e.setCancelled(true);
                     MessageChecker.alertMods(player, message);
-                    DataSender.sendData(new DataPacket(player.getName(),message));
+                    DataSender.sendData(new BadMessagePacket("0",player.getName(),message));
                     return;
                 case ALREADY_BLOCKED:
                     e.setCancelled(true);
@@ -176,7 +176,7 @@ public class Handler implements Listener {
                     new KeyedMessage(player,"messages.banmessage",null).send();
                     e.setCancelled(true);
                     MessageChecker.alertMods(player, message);
-                    DataSender.sendData(new DataPacket(player.getName(),message));
+                    DataSender.sendData(new BadMessagePacket("0",player.getName(),message));
                     return;
                 case ALREADY_BLOCKED:
                     e.setCancelled(true);

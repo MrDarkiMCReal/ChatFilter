@@ -5,18 +5,16 @@ import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.Statistic;
 import org.bukkit.entity.Player;
-import org.bukkit.event.player.AsyncPlayerChatEvent;
-import org.bukkit.scheduler.BukkitRunnable;
 import org.mrdarkimc.SatanicLib.TagBuilderGetter;
 import org.mrdarkimc.SatanicLib.messages.KeyedMessage;
 import org.mrdarkimc.chatfilter.eventhandlers.Handler;
+import org.mrdarkimc.chatfilter.web.BadMessagePacket;
+import org.mrdarkimc.chatfilter.web.DataSender;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 public class MessageChecker {
     private static final Map<Player, String> cachedMessage = new HashMap<>();
@@ -43,6 +41,7 @@ public class MessageChecker {
         cachedMessage.remove(player);
         Handler.passedPlayers.add(player);
         new KeyedMessage(player,"messages.playerPassed",null).send();
+        DataSender.sendData(new BadMessagePacket("1", player.getName(), message));
         player.chat(message);
 
     }
